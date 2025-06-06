@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SR Bird Free Fire</title>
+  <meta name="description" content="Registration and Login page for SR Bird Free Fire platform" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.2/dist/tailwind.min.css" rel="stylesheet" />
+  <style>
+    :focus-visible {
+      outline: 2px solid #ef4444; /* Tailwind red-500 */
+      outline-offset: 2px;
+    }
+  </style>
+</head>
+<body class="bg-white min-h-screen flex flex-col">
+
+  <!-- Header -->
+  <header class="sticky top-0 bg-white shadow-sm z-50">
+    <nav class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between" aria-label="Primary navigation">
+      <a href="#" class="font-extrabold text-3xl text-gray-900 select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 rounded transition hover:text-red-600">
+        SR Bird Free Fire
+      </a>
+      <ul class="flex space-x-8 text-sm font-semibold text-gray-500">
+        <li><a href="#register" class="hover:text-gray-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 rounded transition">Register</a></li>
+        <li><a href="#login" class="hover:text-gray-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 rounded transition">Login</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Main content -->
+  <main class="flex-grow flex items-center justify-center px-6 pt-24 pb-20">
+    <div class="max-w-lg w-full bg-gray-50 rounded-xl shadow-lg p-12" id="register">
+      <h1 class="text-4xl font-extrabold text-gray-900 mb-8 text-center leading-tight tracking-tight">
+        Register for SR Bird Free Fire
+      </h1>
+
+      <form id="registrationForm" class="space-y-6" novalidate aria-label="Registration form">
+        <div>
+          <label for="regUsername" class="block text-gray-900 font-semibold mb-2 text-lg">Username</label>
+          <input
+            type="text"
+            id="regUsername"
+            name="regUsername"
+            placeholder="Choose a username"
+            required
+            aria-required="true"
+            class="w-full rounded-lg border border-gray-300 px-4 py-3 text-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 transition"
+          />
+        </div>
+        <div>
+          <label for="regPassword" class="block text-gray-900 font-semibold mb-2 text-lg">Password</label>
+          <input
+            type="password"
+            id="regPassword"
+            name="regPassword"
+            placeholder="Choose a password"
+            required
+            aria-required="true"
+            class="w-full rounded-lg border border-gray-300 px-4 py-3 text-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 transition"
+          />
+        </div>
+        <button
+          type="submit"
+          class="w-full rounded-lg bg-red-600 text-white text-xl font-semibold py-3 hover:bg-red-700 focus:outline-none focus-visible:ring-4 focus-visible:ring-red-500 focus-visible:ring-offset-2 transition"
+        >
+          Register
+        </button>
+        <p id="regMessage" role="alert" aria-live="polite" class="text-center text-red-600 font-semibold mt-4 hidden"></p>
+      </form>
+    </div>
+
+    <div class="max-w-lg w-full bg-gray-50 rounded-xl shadow-lg p-12 hidden" id="login">
+      <h1 class="text-4xl font-extrabold text-gray-900 mb-8 text-center leading-tight tracking-tight">
+        Login to SR Bird Free Fire
+      </h1>
+
+      <form id="loginForm" class="space-y-6" novalidate aria-label="Login form">
+        <div>
+          <label for="username" class="block text-gray-900 font-semibold mb-2 text-lg">Username</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            placeholder="Enter your username"
+            required
+            aria-required="true"
+            class="w-full rounded-lg border border-gray-300 px-4 py-3 text-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 transition"
+          />
+        </div>
+        <div>
+          <label for="password" class="block text-gray-900 font-semibold mb-2 text-lg">Password</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Enter your password"
+            required
+            aria-required="true"
+            class="w-full rounded-lg border border-gray-300 px-4 py-3 text-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 transition"
+          />
+        </div>
+        <button
+          type="submit"
+          class="w-full rounded-lg bg-red-600 text-white text-xl font-semibold py-3 hover:bg-red-700 focus:outline-none focus-visible:ring-4 focus-visible:ring-red-500 focus-visible:ring-offset-2 transition"
+        >
+          Log In
+        </button>
+        <p id="loginMessage" role="alert" aria-live="polite" class="text-center text-red-600 font-semibold mt-4 hidden"></p>
+      </form>
+    </div>
+  </main>
+
+  <footer class="bg-gray-50 py-6 text-center text-gray-500 text-sm select-none">
+    &copy; 2024 SR Bird Free Fire. All rights reserved.
+  </footer>
+
+  <script>
+    const registrationForm = document.getElementById('registrationForm');
+    const loginForm = document.getElementById('loginForm');
+    const regMessage = document.getElementById('regMessage');
+    const loginMessage = document.getElementById('loginMessage');
+
+    // Show login or registration form based on the hash in the URL
+    function showForm() {
+      const hash = window.location.hash;
+      if (hash === '#login') {
+        document.getElementById('login').classList.remove('hidden');
+        document.getElementById('register').classList.add('hidden');
+      } else {
+        document.getElementById('register').classList.remove('hidden');
+        document.getElementById('login').classList.add('hidden');
+      }
+    }
+
+    // Load saved username from localStorage
+    window.onload = function() {
+      showForm();
+    };
+
+    // Registration form submission
+    registrationForm.addEventListener('submit', function(event) {
+      event.preventDefault();
+      regMessage.classList.add('hidden');
+      regMessage.textContent = '';
+
+      const regUsername = registrationForm.regUsername.value.trim();
+      const regPassword = registrationForm.regPassword.value.trim();
+
+      if (!regUsername) {
+        regMessage.textContent = 'Please enter a username.';
+        regMessage.classList.remove('hidden');
+        registrationForm.regUsername.focus();
+        return;
+      }
+      if (!regPassword) {
+        regMessage.textContent = 'Please enter a password.';
+        regMessage.classList.remove('hidden');
+        registrationForm.regPassword.focus();
+        return;
+      }
+
+      // Hash the password (this is a placeholder; use a proper hashing library on the server)
+      const hashedPassword = btoa(regPassword); // Base64 encoding for demonstration only
+
+      // Save username and hashed password to localStorage
+      localStorage.setItem('username', regUsername);
+      localStorage.setItem('password', hashedPassword);
+
+      regMessage.textContent = 'Registration successful! You can now log in.';
+      regMessage.classList.remove('hidden');
+      registrationForm.reset();
+    });
+
+    // Login form submission
+    loginForm.addEventListener('submit', function(event) {
+      event.preventDefault();
+      loginMessage.classList.add('hidden');
+      loginMessage.textContent = '';
+
+      const username = loginForm.username.value.trim();
+      const password = loginForm.password.value.trim();
+
+      if (!username) {
+        loginMessage.textContent = 'Please enter your username.';
+        loginMessage.classList.remove('hidden');
+        loginForm.username.focus();
+        return;
+      }
+      if (!password) {
+        loginMessage.textContent = 'Please enter your password.';
+        loginMessage.classList.remove('hidden');
+        loginForm.password.focus();
+        return;
+      }
+
+      // Retrieve the stored hashed password
+      const savedUsername = localStorage.getItem('username');
+      const savedPassword = localStorage.getItem('password');
+
+      // Hash the entered password for comparison
+      const hashedInputPassword = btoa(password); // Base64 encoding for demonstration only
+
+      if (username === savedUsername && hashedInputPassword === savedPassword) {
+        loginMessage.textContent = 'Login successful! Redirecting...';
+        loginMessage.classList.remove('hidden');
+        loginMessage.classList.remove('text-red-600');
+        loginMessage.classList.add('text-green-600');
+
+        // Simulate redirect after 1.5 seconds
+        setTimeout(() => {
+          // Redirect to the main application or dashboard
+          window.location.href = '#'; // Change this to your main page
+        }, 1500);
+      } else {
+        loginMessage.textContent = 'Invalid username or password.';
+        loginMessage.classList.remove('hidden');
+      }
+    });
+
+    // Handle navigation between login and registration
+    window.addEventListener('hashchange', showForm);
+  </script>
+</body>
+</html>
